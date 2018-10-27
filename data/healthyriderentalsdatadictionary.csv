@@ -1,0 +1,11 @@
+Column,Description
+TripId,Unique Trip ID
+StartTime,Start Date/time
+StopTime,Stop date/time
+BikeId,Bike ID
+TripDuration,Duration of trip in seconds
+FromStationId,Station ID at trip origin
+FromStationName,Station Name at trip origin
+ToStationId,Station ID at trip destination
+ToStationName,Station Name at trip destination
+UserType,User fare type
