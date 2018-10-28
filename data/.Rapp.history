@@ -1,0 +1,45 @@
+setwd('~/GitHub/healthy-ride-pgh/data')
+list.files(list.files(pattern = '-q\d.csv$'#
+)
+list.files(pattern = '-q\\d.csv$'
+)
+csvs <- list.files(pattern = '-q\\d.csv$')
+d <- read.csv(csvs[1])
+d
+head(d)
+for c in csvs {#
+  print(c)#
+}
+for (c in csvs) {#
+  print(c)#
+}
+data <- NULL#
+for (c in csvs) {#
+  data <- rbind(#
+    data, #
+    read.csv(c)#
+  )#
+}
+dim(csvs)
+dim(data)
+head(data)
+tail(data)
+from_to <- as.data.frame( xtabs(~ From.station.id + To.station.id) )
+from_to <- as.data.frame( xtabs(~ From.station.id + To.station.id, data=data) )
+head(from_to)
+dim(from_to)
+from_to
+from_to
+xtabs(From.station.id, data=data)
+xtabs(~ From.station.id, data=data)
+len(xtabs(~ From.station.id, data=data))
+dim(xtabs(~ From.station.id, data=data))
+xtabs(~ From.station.id + To.station.id, data=data)
+from_to_table <- xtabs(~ From.station.id + To.station.id, data=data)
+write.csv(from_to_table, file='from_to_table.csv')
+from_to_table <- xtabs(~ From.station.id + To.station.id, data=data)
+from_to_data <- as.data.frame( from_to_table )#
+write.csv(from_to_data, file='from_to_data.csv')
+write.csv(from_to_data, file='../public/from_to_data.csv')
+write.csv(from_to_data, file='../public/from_to_data.csv', row_names=F)
+write.csv(from_to_data, file='../public/from_to_data.csv', row.names=F)
