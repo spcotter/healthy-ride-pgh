@@ -96,6 +96,7 @@ class RideMap extends React.Component {
                   key={`CircleMarker-${s.number}`}
                   center={[s.latitude, s.longitude]}
                   radius={4}
+                  width={5}
                   color="transparent"
                   fillOpacity={0.5}
                   fillColor="#555555"
