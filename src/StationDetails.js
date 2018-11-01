@@ -4,6 +4,7 @@ import {Label, Button} from 'react-bootstrap';
 import { commas, percent, decimals } from './format';
 import { getDistanceFromLatLonInKm, km2mi  } from './distance';
 import SplitDataBar from './SplitDataBar';
+import ClusterDot from './ClusterDot';
 
 
 class StationDetails extends React.Component {
@@ -14,7 +15,9 @@ class StationDetails extends React.Component {
       stationTotals,
       overallTotal,
       fromToData,
-      stationNumber
+      stationNumber,
+      clusters,
+      clustersK
     } = this.props;
 
     const stationsByNumber = {};
@@ -24,22 +27,26 @@ class StationDetails extends React.Component {
 
     return (
       <div>
-        <div style={{ backgroundColor: 'whitesmoke', padding: 15 }}>
-          {/* <Button componentClass={Link} to="/">
-            <i className="fas fa-arrow-back"/>
-          </Button> */}
-          <h4>
-            <Label className="pull-right" bsStyle="primary" bsSize="medium">{ station.category }</Label>
-            { station.name }
-          </h4>
-          <h5>
-            { commas(rides) } or { percent( rides / overallTotal ) } of all rides
-          </h5>
-        </div>
         <div>
+          <div style={{ backgroundColor: 'whitesmoke', padding: 15 }}>
+            {/* <Button componentClass={Link} to="/">
+              <i className="fas fa-arrow-back"/>
+            </Button> */}
+            <h4>
+              <Label className="pull-right" bsStyle="primary" bsSize="medium">{ station.category }</Label>
+              { station.name }
+            </h4>
+            <h5>
+              { commas(rides) } or { percent( rides / overallTotal ) } of all rides
+            </h5>
+
+          </div>
           <div style={styles.popularHeading}>
             Popular destinations from this station:
           </div>
+        </div>
+        <div style={{ position: 'absolute', overflowY: 'scroll', top: 122, right: 0, bottom: 0, left: 0 }}>
+
             {
               fromToData.map( (d,i) => {
                 const to = stationsByNumber[d.to];
@@ -53,6 +60,7 @@ class StationDetails extends React.Component {
                 );
                 return (
                   <div key={i} style={styles.destination}>
+                    <ClusterDot clusters={clusters} clustersK={clustersK} stationNumber={d.to}/>
                     <div style={styles.destinationName}>{stationsByNumber[d.to].name}</div>
                     <div style={styles.p}> { percent(p) }, { decimals( km2mi(dist) ) } mi, { commas(d.duration) } m</div>
                     <SplitDataBar outerWidth={p} widths={[1]} fills={d.to === station.number ? ['#398BFB'] : ['#9cc5fd'] } />

@@ -18,6 +18,8 @@ class StationList extends React.PureComponent {
       stationTotals,
       overallTotal,
       fromToData,
+      clusters,
+      clustersK,
     } = this.props;
 
     if(loading) {
@@ -40,6 +42,18 @@ class StationList extends React.PureComponent {
 
             return (
               <div style={styles.listItem} key={s.number} >
+                {
+                  clustersK ?
+                  <div className="pull-right">
+                    <div style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: 10,
+                      backgroundColor: d3.schemeCategory10[clusters[s.number][clustersK]]
+                    }}/>
+                </div>
+                  : null
+                }
                 <div style={styles.nameWrapper}>
                   <Link to={`/${s.number}`} >
                   <div style={styles.name}>{s.name}</div>

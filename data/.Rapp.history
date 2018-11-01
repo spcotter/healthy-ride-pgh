@@ -7,92 +7,215 @@ for (c in csvs) {#
     data,#
     read.csv(c)#
   )#
-}#
-#
+}
 dim(data)#
 head(data)#
 tail(data)
-from_to_freq_table <- xtabs(~ From.station.id + To.station.id, data=data)#
+stations <- read.csv('healthyridestations2017')
+stations <- read.csv('healthyridestations2017.csv')
+dim(stations)#
+head(stations)#
+tail(stations)
+current_stations <- subset(data, #
+  From.station.id %in% stations$Station.. | #
+  To.station.id %in% stations$Station..#
+)
+dim(current_stations)
+dim(data)
+station_trips <- subset(data, #
+  From.station.id %in% stations$Station.. & #
+  To.station.id %in% stations$Station..#
+)
+dim(station_trips)
+dim(data)
+current_station_trips <- subset(data,#
+  From.station.id %in% stations$Station.. &#
+  To.station.id %in% stations$Station..#
+)
+from_to_freq_table <- xtabs(~ From.station.id + To.station.id, data=current_station_trips)#
 from_to_freq_data <- as.data.frame( from_to_freq_table )#
 names(from_to_freq_data) <- c('from', 'to', 'freq')#
 dim(from_to_freq_data)
-head(from_to_freq_data)
-from_to_freq_data$out_and_back <- from_to_freq_data$from == from_to_freq_data$to
-head(from_to_freq_data)
-paste?
-()
-?paste
-from_to_freq_data$out_and_back <- paste(from_to_freq_data$from) == paste(from_to_freq_data$to)
-head(from_to_freq_data)
-head(from_to_freq_data, n=100)
-xtabs(freq~ out_and_back, data=from_to_freq_data)
-from_to_time_table
-from_to_freq_table
-W <- as.matrix(from_to_freq_table)
-W
 dim(from_to_freq_table)
-dim(from_to_freq_table)
-dim(from_to_freq_table[1:,])
-dim(from_to_freq_table[,c(2:)])
-dim(from_to_freq_table[,2:])
-from_to_freq_table[,2:]
-dim(from_to_freq_table)
+head(dim(from_to_freq_table)#
+)
 head(from_to_freq_table)
-dim(from_to_freq_table)[2]
-W <- as.matrix(#
-  unlist(from_to_freq_table), #
-  ncol=dim(from_to_freq_table)[2] - 1,#
-  byrow=TRUE#
+from_to_freq_matrix <- as.matrix(from_to_freq_table)
+head(from_to_freq_matrix)
+colSums(from_to_freq_matrix)
+dim(colSums(from_to_freq_matrix))
+len(colSums(from_to_freq_matrix))
+length(colSums(from_to_freq_matrix))
+1 / colSums(from_to_freq_matrix)
+from_to_freq_matrix / colSums(from_to_freq_matrix)
+W <- from_to_freq_matrix / colSums(from_to_freq_matrix)
+colSums(W)
+rowSums(W)
+W <- t(t(from_to_freq_matrix)/colSums(from_to_freq_matrix))
+head(W)
+colSuma(W)
+colSums(W)
+W <- t( t(from_to_freq_matrix) / colSums(from_to_freq_matrix) )
+library
+W <- sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')
+colSums(W)
+library(anocva)
+clustered < - spectralClustering(W, 2)
+clustered <- spectralClustering(W, 2)
+from_to_freq_matrix <- as.matrix(sapply(from_to_freq_table, as.numeric))
+from_to_freq_matrix
+W <- sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')
+head(W)
+clustered <- spectralClustering(W, 2)
+dim(W)
+from_to_freq_matrix <- matrix(as.numeric(unlist(from_to_freq_table)),nrow=nrow(from_to_freq_table))
+dim(from_to_freq_matrix)
+W <- sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')
+clustered <- spectralClustering(W, 2)
+W
+W
+clustered <- spectralClustering(W, 2)
+W <- as.numeric(#
+  sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')#
 )
+clustered <- spectralClustering(W, 2)
 W
 dim(W)
-w[,2:]
-w[,]
-W[,]
-W[,2:]
-W[,]
-W[,seq(2)]
-W[,seq(2,61)]
-dim(W[,seq(2,61)])
-head(W[,1])
-head(W[,61])
-head(W[,0])
-dim(W)
-rownames
-rownames(W)
-head(W[,1:2])
-colnames
-colnames(W)
-rownames(W)
-stations <- c(1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1043,1044,1045,1046,1047,1048,1049,1050,1061)
-rowsnames(W)[rownames(W) not %in% stations]
-rnames <- rowsnames(W)
-rnames <- rownames(W)
-rownames(W)[rownames(W) not %in% stations]
-rownames[rnames not %in% stations]
-rnames not %in% stations
-rnames
+from_to_freq_matrix <- matrix(#
+  as.numeric(unlist(from_to_freq_table)),#
+  nrow=nrow(from_to_freq_table)#
+)#
+W <- as.numeric(#
+  sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')#
+)
+clustered <- spectralClustering(W, 2)
+from_to_freq_matrix <- as.matrix(#
+  as.numeric(unlist(from_to_freq_table)),#
+  nrow=nrow(from_to_freq_table)#
+)
+dim(from_to_freq_matrix)
+from_to_freq_matrix <- matrix(#
+  as.numeric(unlist(from_to_freq_table)),#
+  nrow=nrow(from_to_freq_table)#
+)
+dim(from_to_freq_matrix)
+from_to_p_matrix <- matrix(#
+  as.numeric(#
+    sweep(from_to_freq_matrix, 2, colSums(from_to_freq_matrix), '/')#
+  ),#
+  nrow=nrow(from_to_freq_table)#
+)
+clustered <- spectralClustering(from_to_p_matrix, 2)
+head(from_to_p_matrix)
+library(fcd)
+spectral.clustering(from_to_p_matrix, normalised = TRUE, score = FALSE, K = 2, adj = FALSE)
+spectral.clustering(from_to_p_matrix, normalised = TRUE, score = FALSE, K = 2, adj = T)
+spectral.clustering(from_to_p_matrix, normalised = TRUE, score = FALSE, K = 2, adj = T)
+spectral.clustering(from_to_p_matrix, normalised = TRUE, score = FALSE, K = 2, adj = T)
+fcd_clusters <- fcd(from_to_p_matrix, 2)
+fcd_clusters <- fcd(from_to_p_matrix, 3)
+spectral_clusters <- spectralClustering(from_to_p_matrix, 2)
+clusters <- spectral.clustering(from_to_p_matrix, normalised = TRUE, score = FALSE, K = 2, adj = FALSE)
+clusters <- spectral.clustering(from_to_p_matrix, normalised = TRUE, score = TRUE, K = 2, adj = FALSE)
+clusters
+spectral.clustering(from_to_p_matrix, K = 3, adj = TRUE)
+head(stations)
+clusters <- spectral.clustering(from_to_p_matrix, K = 3, adj = TRUE)#
+for i in 1:len(clusters) {#
+  print(paste(stations$Station.Name[i], stations$Station..[i])#
+}
+clusters <- spectral.clustering(from_to_p_matrix, K = 3, adj = TRUE)#
+for (i in 1:len(clusters)) {#
+  print(paste(stations$Station.Name[i], stations$Station..[i])#
+}
+for (i in 1:len(clusters)) {#
+  print(paste(stations$Station.Name[i], stations$Station..[i]))#
+}
+for (i in 1:length(clusters)) {#
+  print(paste(stations$Station.Name[i], stations$Station..[i]))#
+}
+for (i in 1:length(clusters)) {#
+  print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='\t'))#
+}
+clusters <- spectral.clustering(from_to_p_matrix, K = 3, adj = TRUE)#
+for (i in 1:length(clusters)) {#
+  print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}
+clusters <- NULL#
+for (i in 1:10) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}
+clusters <- NULL#
+for (i in 1:6) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}
+clusters
+clusters <- NULL#
+for (i in 1:8) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}
+clusters <- t(clusters)
+clusters
+clusters <- as.data.frame( t(clusters) )
+clusters
+clusters <- NULL#
+for (i in 1:8) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}#
+#
+clusters <- as.data.frame( t(clusters) )
+clusters
+seq(1,8)
+paste('c', seq(1,8))
+paste('c', seq(1,8), sep='')
+max_k <- 8#
+clusters <- NULL#
+for (i in seq(1,8)) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}
+clusters
+clusters <- as.data.frame( t(clusters) )
+clusters
+names(clusters) <- paste('c', seq(1,max_k), sep='')
+clusters
 stations
-head(data)
-missing_stations <- subset(data, From.station.id %in% c(1751.1761))
-dim(missing_stations)
-missing_stations <- subset(data, From.station.id %in% c(1751,1761))
-dim(missing_stations)
-head(missing_stations)
-missing_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791)#
-)
-xtabs(~ From.station.id, data=missing_stations)
-xtabs(~ From.station.name, data=missing_stations)
-xtabs(~ From.station.name, data=missing_stations, drop.unused.levels=T)
-missing_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) | To.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791)#
-)
-dim(missing_stations)
-xtabs(~ From.station.name, data=missing_stations, drop.unused.levels=T)
-missing_from_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
-)
-xtabs(~ From.station.name, data= missing_from_stations, drop.unused.levels=T)
-missing_to_stations <- subset(data, To %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
-)
-missing_to_stations <- subset(data, To.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
-)
-xtabs(~ To.station.name, data= missing_to_stations, drop.unused.levels=T)
+clusters <- cbind(stations$Station.., clusters)#
+names(clusters)[1] <- 'station_number'
+clusters
+max_k <- 8#
+clusters <- NULL#
+for (i in seq(2,8)) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = TRUE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}#
+#
+clusters <- as.data.frame( t(clusters) )#
+names(clusters) <- paste('c', seq(2, max_k), sep='')#
+clusters <- cbind(stations$Station.., clusters)#
+names(clusters)[1] <- 'station_number'
+clusters
+write.csv(clusters, file='../public/clusters.csv', row.names=F)
+max_k <- 8#
+clusters <- NULL#
+for (i in seq(2,8)) {#
+  c <- spectral.clustering(from_to_p_matrix, K = i, adj = FALSE)#
+  clusters <- rbind(clusters, c)#
+  # print(paste(clusters[i], stations$Station.Name[i], stations$Station..[i], sep='|'))#
+}#
+#
+clusters <- as.data.frame( t(clusters) )#
+names(clusters) <- paste('c', seq(2, max_k), sep='')#
+clusters <- cbind(stations$Station.., clusters)#
+names(clusters)[1] <- 'station_number'#
+write.csv(clusters, file='../public/clusters.csv', row.names=F)
