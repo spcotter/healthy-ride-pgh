@@ -219,3 +219,78 @@ names(clusters) <- paste('c', seq(2, max_k), sep='')#
 clusters <- cbind(stations$Station.., clusters)#
 names(clusters)[1] <- 'station_number'#
 write.csv(clusters, file='../public/clusters.csv', row.names=F)
+current_station_trips <- subset(data,#
+  From.station.id %in% stations$Station.. &#
+  To.station.id %in% stations$Station..#
+)#
+#
+from_to_freq_table <- xtabs(~ From.station.id + To.station.id, data=current_station_trips)#
+#
+from_to_freq_data <- as.data.frame( from_to_freq_table )#
+names(from_to_freq_data) <- c('from', 'to', 'freq')#
+dim(from_to_freq_data)#
+#
+from_to_time_table <- xtabs(#
+  Tripduration ~ From.station.id + To.station.id,#
+  aggregate(Tripduration ~ From.station.id + To.station.id, current_station_trips, mean)#
+)#
+from_to_time_data <- as.data.frame( from_to_time_table )#
+names(from_to_time_data) <- c('from', 'to', 'duration_s')#
+dim(from_to_time_data)#
+#
+from_to_data <- merge(#
+  from_to_freq_data,#
+  from_to_time_data,#
+  by=c('from', 'to')#
+)#
+dim(from_to_data)#
+#
+write.csv(from_to_data, file='../public/from_to_data.csv', row.names=F)
+write.csv(from_to_p_matrix, file='from_to_p_matrix.csv', row.names=F)
+from_to_p_matrix
+head(from_to_p_matrix)
+stations
+as.matrix(stations$X..of.Racks)
+racks <- t(stations$X..of.Racks)
+raks
+racks
+racks %*% from_to_p_matrix
+racks %*% from_to_p_matrix %*% from_to_p_matrix
+install.packages("expm", repos="http://R-Forge.R-project.org")
+racks %*% from_to_p_matrix %^% 10
+library(expm)
+racks %*% from_to_p_matrix %^% 10
+racks %*% (from_to_p_matrix %^% 10)
+racks %*% from_to_p_matrix
+racks
+racks %*% from_to_p_matrix
+racks %*% (from_to_p_matrix %^% 2)
+racks %*% (from_to_p_matrix %^% 3)
+racks %*% (from_to_p_matrix %^% 4)
+racks %*% (from_to_p_matrix %^% 5)
+racks %*% (from_to_p_matrix %^% 6)
+racks %*% (from_to_p_matrix %^% 7)
+racks %*% (from_to_p_matrix %^% 8)
+racks %*% (from_to_p_matrix %^% 9)
+racks %*% (from_to_p_matrix %^% 10)
+racks/sum(racks)
+racks_dist <- racks / sum(racks)
+racks_dist %*% from_to_p_matrix
+racks %*% (from_to_p_matrix %^% 10)
+racks_dist %*% (from_to_p_matrix %^% 10)
+racks_dist %*% from_to_p_matrix
+racks_dist %*% (from_to_p_matrix %^% 3)
+racks_dist %*% (from_to_p_matrix %^% 4)
+racks_dist %*% (from_to_p_matrix %^% 5)
+racks_dist %*% (from_to_p_matrix %^% 6)
+racks_dist %*% (from_to_p_matrix %^% 7)
+racks_dist %*% (from_to_p_matrix %^% 8)
+racks_dist %*% (from_to_p_matrix %^% 9)
+racks_dist %*% (from_to_p_matrix %^% 10)
+racks_dist
+racks_dist %*% (from_to_p_matrix %^% 20)
+racks_dist %*% (from_to_p_matrix %^% 5)
+racks_dist %*% (from_to_p_matrix %^% 6)
+racks_dist %*% (from_to_p_matrix %^% 10)
+racks_dist %*% (from_to_p_matrix %^% 30)
+from_to_p_matrix

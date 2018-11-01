@@ -2,6 +2,7 @@
   "name": "healthy-ride-pgh",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://spcotter.github.io/healthy-ride-pgh",
   "dependencies": {
     "d3": "^5.7.0",
     "leaflet": "^1.3.4",
