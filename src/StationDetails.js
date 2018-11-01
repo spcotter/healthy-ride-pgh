@@ -29,8 +29,8 @@ class StationDetails extends React.Component {
             <i className="fas fa-arrow-back"/>
           </Button> */}
           <h4>
+            <Label className="pull-right" bsStyle="primary" bsSize="medium">{ station.category }</Label>
             { station.name }
-            <Label className="pull-right" bsStyle="success" bsSize="medium">#{ station.number }</Label>
           </h4>
           <h5>
             { commas(rides) } or { percent( rides / overallTotal ) } of all rides

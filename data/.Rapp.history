@@ -1,45 +1,98 @@
-setwd('~/GitHub/healthy-ride-pgh/data')
-list.files(list.files(pattern = '-q\d.csv$'#
-)
-list.files(pattern = '-q\\d.csv$'
-)
-csvs <- list.files(pattern = '-q\\d.csv$')
-d <- read.csv(csvs[1])
-d
-head(d)
-for c in csvs {#
-  print(c)#
-}
-for (c in csvs) {#
-  print(c)#
-}
+setwd('~/GitHub/healthy-ride-pgh/data')#
+csvs <- list.files(pattern = '-q\\d.csv$')#
+#
 data <- NULL#
 for (c in csvs) {#
   data <- rbind(#
-    data, #
+    data,#
     read.csv(c)#
   )#
-}
-dim(csvs)
-dim(data)
-head(data)
+}#
+#
+dim(data)#
+head(data)#
 tail(data)
-from_to <- as.data.frame( xtabs(~ From.station.id + To.station.id) )
-from_to <- as.data.frame( xtabs(~ From.station.id + To.station.id, data=data) )
-head(from_to)
-dim(from_to)
-from_to
-from_to
-xtabs(From.station.id, data=data)
-xtabs(~ From.station.id, data=data)
-len(xtabs(~ From.station.id, data=data))
-dim(xtabs(~ From.station.id, data=data))
-xtabs(~ From.station.id + To.station.id, data=data)
-from_to_table <- xtabs(~ From.station.id + To.station.id, data=data)
-write.csv(from_to_table, file='from_to_table.csv')
-from_to_table <- xtabs(~ From.station.id + To.station.id, data=data)
-from_to_data <- as.data.frame( from_to_table )#
-write.csv(from_to_data, file='from_to_data.csv')
-write.csv(from_to_data, file='../public/from_to_data.csv')
-write.csv(from_to_data, file='../public/from_to_data.csv', row_names=F)
-write.csv(from_to_data, file='../public/from_to_data.csv', row.names=F)
+from_to_freq_table <- xtabs(~ From.station.id + To.station.id, data=data)#
+from_to_freq_data <- as.data.frame( from_to_freq_table )#
+names(from_to_freq_data) <- c('from', 'to', 'freq')#
+dim(from_to_freq_data)
+head(from_to_freq_data)
+from_to_freq_data$out_and_back <- from_to_freq_data$from == from_to_freq_data$to
+head(from_to_freq_data)
+paste?
+()
+?paste
+from_to_freq_data$out_and_back <- paste(from_to_freq_data$from) == paste(from_to_freq_data$to)
+head(from_to_freq_data)
+head(from_to_freq_data, n=100)
+xtabs(freq~ out_and_back, data=from_to_freq_data)
+from_to_time_table
+from_to_freq_table
+W <- as.matrix(from_to_freq_table)
+W
+dim(from_to_freq_table)
+dim(from_to_freq_table)
+dim(from_to_freq_table[1:,])
+dim(from_to_freq_table[,c(2:)])
+dim(from_to_freq_table[,2:])
+from_to_freq_table[,2:]
+dim(from_to_freq_table)
+head(from_to_freq_table)
+dim(from_to_freq_table)[2]
+W <- as.matrix(#
+  unlist(from_to_freq_table), #
+  ncol=dim(from_to_freq_table)[2] - 1,#
+  byrow=TRUE#
+)
+W
+dim(W)
+w[,2:]
+w[,]
+W[,]
+W[,2:]
+W[,]
+W[,seq(2)]
+W[,seq(2,61)]
+dim(W[,seq(2,61)])
+head(W[,1])
+head(W[,61])
+head(W[,0])
+dim(W)
+rownames
+rownames(W)
+head(W[,1:2])
+colnames
+colnames(W)
+rownames(W)
+stations <- c(1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039,1040,1041,1042,1043,1044,1045,1046,1047,1048,1049,1050,1061)
+rowsnames(W)[rownames(W) not %in% stations]
+rnames <- rowsnames(W)
+rnames <- rownames(W)
+rownames(W)[rownames(W) not %in% stations]
+rownames[rnames not %in% stations]
+rnames not %in% stations
+rnames
+stations
+head(data)
+missing_stations <- subset(data, From.station.id %in% c(1751.1761))
+dim(missing_stations)
+missing_stations <- subset(data, From.station.id %in% c(1751,1761))
+dim(missing_stations)
+head(missing_stations)
+missing_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791)#
+)
+xtabs(~ From.station.id, data=missing_stations)
+xtabs(~ From.station.name, data=missing_stations)
+xtabs(~ From.station.name, data=missing_stations, drop.unused.levels=T)
+missing_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) | To.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791)#
+)
+dim(missing_stations)
+xtabs(~ From.station.name, data=missing_stations, drop.unused.levels=T)
+missing_from_stations <- subset(data, From.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
+)
+xtabs(~ From.station.name, data= missing_from_stations, drop.unused.levels=T)
+missing_to_stations <- subset(data, To %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
+)
+missing_to_stations <- subset(data, To.station.id %in% c(1059,1751,1761,1762,1764,1771,1781,1791) #
+)
+xtabs(~ To.station.name, data= missing_to_stations, drop.unused.levels=T)

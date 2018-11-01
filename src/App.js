@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Router, Route, Redirect, Switch } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Router, Route, Switch } from 'react-router-dom';
 import * as d3 from 'd3';
 
 
+import AppLayout from './AppLayout';
 import AllStations from './AllStations';
 import SingleStation from './SingleStation';
-import { commas } from './format';
 
 import history from './history';
 
@@ -17,13 +16,17 @@ class App extends Component {
     stationTotals: null,
     stations: null,
     locations: null,
+    clusters: null,
     overallTotal: null,
+    clustersK: 'c6',
   }
 
 
   componentDidMount = () => {
     this.loadRideData()
     .then(this.loadStationData)
+    .then(this.loadClusterData)
+    .then(this.categorizeStations)
     .finally(() => this.setState({loading: false}));
   }
 
@@ -66,6 +69,17 @@ class App extends Component {
     });
   }
 
+
+  loadClusterData = () => {
+    return d3.csv('clusters.csv')
+      .then(clusterArray => {
+        const clusters = {};
+        clusterArray.forEach(c => clusters[c.station_number] = c);
+        console.log('clusters', clusters);
+        this.setState({ clusters });
+      });
+  }
+
   totals = fromToData => {
     let overall = 0;
     const byStation = {};
@@ -78,72 +92,57 @@ class App extends Component {
     return { byStation, overall };
   }
 
+  categorizeStations = () => {
+    const { stations, fromToData, stationTotals } = this.state;
+    stations.forEach(s => {
+      const trips = fromToData.filter(t => t.from === s.number).sort((a,b) => d3.descending(a.freq,b.freq));
+      s.category = trips[0].to === s.number ? 'Out-and-back' : 'Commuter';
+      s.majority_return = s.category === 'Out-and-back' && trips[0].freq >= 0.5 * stationTotals[s.number];
+      console.log(s.number, s.category, s.majority_return, trips[0].freq, stationTotals[s.number]);
+    });
+
+    console.log('stations', stations);
+  }
+
+  onChangeClustersK = e => {
+    this.setState({ clustersK: e.target.value });
+  }
+
+
 
   render() {
-    const {overallTotal} = this.state;
     return (
+      <Router history={history}>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={props => {
+              const params = {...this.state, ...props, onChangeClustersK: this.onChangeClustersK};
 
-      <div>
-        <Grid fluid>
-          <Row>
-            <Col sm={6}>
-              <h2>Healthy Ride</h2>
-            </Col>
-            <Col sm={6} style={{ textAlign: 'right' }}>
-              <h2>
-                <small>{ commas(overallTotal) } rides</small>
-              </h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={6}>
-              <small>May 31, 2015 - June 30, 2018</small>
-            </Col>
-            <Col sm={6}></Col>
-          </Row>
+              return (
+                <AppLayout {...this.state}>
+                  <AllStations {...params}/>
+                </AppLayout>
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/:stationNumber"
+            component={props => {
+                const params = {...this.state, ...props, onChangeClustersK: this.onChangeClustersK};
 
-          <h2 style={{ margin: 0 }}>
-            <small className="pull-right">{ commas(overallTotal) } rides</small>
-            Healthy Ride
-          </h2>
-          <div>
-            <div className="pull-right">
-              <div className="clearfix" style={{ marginBottom: 5, fontSize: 10, lineHeight: '10px', position: 'relative' }}>
-                <div className="pull-left" style={{ width: 10, height: 10, backgroundColor: '#3C8AF1' }}/>
-                <div>&nbsp;Returned to same station</div>
-              </div>
-              <div className="clearfix" style={{ marginBottom: 5, fontSize: 10, lineHeight: '10px', position: 'relative' }}>
-                <div className="pull-left" style={{ width: 10, height: 10, backgroundColor: '#9EC6FB' }}/>
-                <div>&nbsp;Returned to another station</div>
-              </div>
-            </div>
+                return (
+                <AppLayout {...this.state}>
+                  <SingleStation {...params}/>
+                </AppLayout>
+              );
+            }}
+          />
 
-          </div>
-        </Grid>
-      <div style={{ position: 'absolute', top: 80, bottom: 0, right: 0, left: 0, borderTop: '1px solid whitesmoke' }}>
-        <Router history={history}>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              component={props => (
-                <AllStations {...this.state}/>
-              )}
-            />
-            <Route
-              exact
-              path="/:stationNumber"
-              component={props => {
-                  const params = {...this.state, ...props};
-                  return (
-                    <SingleStation {...params}/>
-                  );
-              }}
-            />
-          </Switch>
-        </Router>
-      </div>
-      </div>
+        </Switch>
+      </Router>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import {Link} from 'react-router-dom';
+import { Label } from 'react-bootstrap';
 
 import SplitDataBar from './SplitDataBar';
 
@@ -35,27 +36,28 @@ class StationList extends React.PureComponent {
             const w = n / max;
             const sameWidth = same / n;
             const diffWidth = (n - same) / n;
-            const scale = d3.scaleLinear()
             const widths = [ sameWidth, diffWidth ];
 
             return (
-              <Link style={{ textDecoration: 'none' }} to={`/${s.number}`} key={s.number} >
-                <div style={styles.listItem}>
-                  <div style={styles.nameWrapper}>
-                    <div style={styles.name}>{s.name}</div>
+              <div style={styles.listItem} key={s.number} >
+                <div style={styles.nameWrapper}>
+                  <Link to={`/${s.number}`} >
+                  <div style={styles.name}>{s.name}</div>
+                  </Link>
+                </div>
+                <div style={styles.barWrapper}>
+                  <Label className="pull-right" style={styles.category}>
+                    { s.category }
+                  </Label>
+                  <div style={styles.number}>
+                    { commas(n) } rides, { percent(n / overallTotal) } of total
                   </div>
-                  <div style={styles.barWrapper}>
-                    <div style={styles.number}>
-                      { commas(n) } rides, { percent(n / overallTotal) } of total
-                    </div>
-                    <div>
-                      <SplitDataBar outerWidth={w} widths={widths} fills={['#398BFB', '#9cc5fd']}/>
-                    </div>
+                  <div>
+                    <SplitDataBar outerWidth={w} widths={widths} fills={['#398BFB', '#9cc5fd']}/>
                   </div>
                 </div>
-              </Link>
+              </div>
             )
-
           })
         }
       </div>
@@ -81,6 +83,10 @@ const styles = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     color: '#555'
+  },
+  category: {
+    color: '#337ab7',
+    backgroundColor: 'whitesmoke'
   },
   barWrapper: {
     height: 20, position: 'relative'
