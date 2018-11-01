@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/healthy-ride-pgh/precache-manifest.3ca668bd3776a114ca3f219b4694c1e8.js"
+  "/healthy-ride-pgh/precache-manifest.8dbc093982098b490951c195f10b7eb5.js"
 );
 
 workbox.clientsClaim();
